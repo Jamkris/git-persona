@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { mkdirSync, rmSync, readFileSync } from 'node:fs';
+import { mkdirSync, rmSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
@@ -78,7 +78,6 @@ describe('config', () => {
     });
 
     it('throws CONFIG_INVALID for malformed JSON', () => {
-      const { writeFileSync } = await import('node:fs');
       writeFileSync(TEST_CONFIG_PATH, '{ bad json }', 'utf-8');
 
       expect(() => readConfig()).toThrow(PersonaError);
@@ -90,7 +89,6 @@ describe('config', () => {
     });
 
     it('throws CONFIG_INVALID for wrong schema', () => {
-      const { writeFileSync } = await import('node:fs');
       writeFileSync(TEST_CONFIG_PATH, JSON.stringify({ version: 2, profiles: [] }), 'utf-8');
 
       expect(() => readConfig()).toThrow(PersonaError);
