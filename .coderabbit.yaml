@@ -1,0 +1,74 @@
+language: "en-US"
+
+tone_instructions: |
+  Be concise and direct. Focus on bugs and security issues over style.
+
+early_access: true
+enable_free_tier: true
+
+reviews:
+  profile: "assertive"
+
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    drafts: false
+
+  high_level_summary: true
+  poem: false
+  collapse_walkthrough: false
+  sequence_diagrams: false
+
+  request_changes_workflow: true
+  suggested_labels: true
+  suggested_reviewers: false
+  auto_apply_labels: false
+
+  path_filters:
+    - "!dist/**"
+    - "!node_modules/**"
+    - "!package-lock.json"
+    - "!*.lock"
+
+  path_instructions:
+    - path: "src/core/**"
+      instructions: |
+        These modules handle sensitive file operations (~/.gitconfig, SSH keys).
+        Check for: atomic writes, proper file permissions (0o600 for private keys),
+        backup before modification, and no silent error swallowing.
+    - path: "src/commands/**"
+      instructions: |
+        CLI command handlers. Verify that all user-facing messages come from
+        src/utils/messages.ts (no hardcoded Korean strings). Errors should be
+        caught as PersonaError and displayed via logger.
+    - path: "scripts/**"
+      instructions: |
+        Shell scripts must use set -e, quote all variables, and avoid
+        direct shell variable interpolation in node -e (use process.env instead).
+    - path: "**/*.ts"
+      instructions: |
+        TypeScript ESM project targeting Node.js 20+. Use node: prefix for
+        built-in modules. No any types. Prefer immutable patterns (spread operator).
+
+  labeling_instructions:
+    - label: "security"
+      instructions: "Changes to SSH key handling, gitconfig writes, or file permissions"
+    - label: "breaking"
+      instructions: "Changes to CLI command names, config schema, or public API"
+
+  tools:
+    shellcheck:
+      enabled: true
+    gitleaks:
+      enabled: true
+    markdownlint:
+      enabled: true
+    biome:
+      enabled: true
+
+chat:
+  auto_reply: true
+
+knowledge_base:
+  learnings:
+    scope: "local"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# git-persona Release Helper Script
+# git-env-manager Release Helper Script
 # Usage: ./scripts/release.sh <version>
 # Example: ./scripts/release.sh 1.0.0
 
@@ -27,25 +27,39 @@ fi
 
 echo "Preparing release v$VERSION... ($CURRENT_VERSION → $VERSION)"
 
-# 1. Update package.json via node to preserve formatting
-node -e "
-const fs = require('fs');
-const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
-pkg.version = '$VERSION';
-fs.writeFileSync('package.json', JSON.stringify(pkg, null, '\t') + '\n');
-"
+# Update package.json via node to preserve formatting
+VERSION="$VERSION" node -e '
+const fs = require("node:fs");
+const pkg = JSON.parse(fs.readFileSync("package.json", "utf-8"));
+pkg.version = process.env.VERSION;
+fs.writeFileSync("package.json", JSON.stringify(pkg, null, "\t") + "\n");
+'
 
-echo "Version updated to $VERSION in package.json."
+# Update src/index.ts version via node (cross-platform)
+VERSION="$VERSION" node << 'SCRIPT'
+const fs = require("node:fs");
+let content = fs.readFileSync("src/index.ts", "utf-8");
+const v = process.env.VERSION;
+const pattern = /\.version\s*\(\s*['"][^'"]*['"]\s*\)/;
+if (!pattern.test(content)) {
+  console.error("Error: could not find .version(...) in src/index.ts");
+  process.exit(1);
+}
+content = content.replace(pattern, `.version('${v}')`);
+fs.writeFileSync("src/index.ts", content);
+SCRIPT
 
-# 2. Build and test
+echo "Version updated to $VERSION in package.json and src/index.ts."
+
+# Build and test
 echo "Building..."
 npm run build
 
 echo "Running tests..."
 npm run test:run
 
-# 3. Git commit and tag
-git add package.json
+# Git commit and tag
+git add package.json src/index.ts
 
 if git diff --cached --quiet; then
     echo "Error: No changes to commit. Something went wrong."
