@@ -35,7 +35,10 @@ pkg.version = '$VERSION';
 fs.writeFileSync('package.json', JSON.stringify(pkg, null, '\t') + '\n');
 "
 
-echo "Version updated to $VERSION in package.json."
+# 2. Update src/index.ts version
+sed -i '' "s/.version('.*')/.version('$VERSION')/" src/index.ts
+
+echo "Version updated to $VERSION in package.json and src/index.ts."
 
 # 2. Build and test
 echo "Building..."
@@ -45,7 +48,7 @@ echo "Running tests..."
 npm run test:run
 
 # 3. Git commit and tag
-git add package.json
+git add package.json src/index.ts
 
 if git diff --cached --quiet; then
     echo "Error: No changes to commit. Something went wrong."
