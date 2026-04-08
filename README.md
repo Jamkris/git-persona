@@ -37,8 +37,10 @@ ghem add personal
 Interactive prompts will ask for:
 - Git user.name
 - Git user.email
-- SSH private key path (default: `~/.ssh/id_ghem_personal`)
+- SSH key setup: **Generate new key** (recommended) or use an existing key
 - Auto-switch directories (optional, comma-separated)
+
+When you choose "Generate new key", `ghem` automatically runs `ssh-keygen` and displays the public key so you can add it to GitHub/GitLab.
 
 ### Switch Profile (Manual)
 
@@ -110,17 +112,15 @@ Both `ghem` and `git-env-manager` work as CLI commands.
 
 ## SSH Key Setup
 
-Before adding a profile, generate SSH keys for each account:
+`ghem add` can **auto-generate** SSH keys for you. Just select "Generate new ed25519 key" during the interactive prompt.
+
+If you prefer to generate keys manually:
 
 ```bash
-# Personal
-ssh-keygen -t ed25519 -C "your-personal@email.com" -f ~/.ssh/id_ghem_personal
-
-# Work
-ssh-keygen -t ed25519 -C "your-work@email.com" -f ~/.ssh/id_ghem_work
+ssh-keygen -t ed25519 -C "your-email@example.com" -f ~/.ssh/id_ghem_personal
 ```
 
-Then register the public keys on each GitHub/GitLab account. When you run `ghem add`, the tool copies the keys into its managed directory.
+Then register the public key on your GitHub/GitLab account. When you run `ghem add` and choose "Use existing key", point to your key path.
 
 ---
 

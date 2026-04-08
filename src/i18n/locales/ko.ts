@@ -23,6 +23,13 @@ export const ko: Messages = {
   sshKeyCopied: (dest) => `SSH 키가 복사되었습니다: ${dest}`,
   sshKeyPrompt: 'SSH 개인키 경로:',
   sshAgentFailed: 'SSH 에이전트 키 전환에 실패했습니다. SSH 에이전트가 실행 중인지 확인하세요.',
+  sshKeyChoice: 'SSH 키 설정:',
+  sshKeyChoiceGenerate: '새 ed25519 키 생성 (권장)',
+  sshKeyChoiceExisting: '기존 키 사용',
+  sshKeyGenerated: (pubPath) => `SSH 키가 생성되었습니다. 공개키: ${pubPath}`,
+  sshKeyAlreadyExists: (path) => `SSH 키가 이미 존재합니다: ${path}`,
+  sshKeyAddToRemote: '위 공개키를 GitHub/GitLab 계정에 등록하세요.',
+  sshKeygenFailed: 'SSH 키 생성에 실패했습니다. 수동으로 생성 후 "기존 키 사용"을 선택하세요.',
 
   // Gitconfig
   gitconfigBackup: (path) => `기존 .gitconfig가 백업되었습니다: ${path}`,

@@ -23,6 +23,13 @@ export const en: Messages = {
   sshKeyCopied: (dest) => `SSH key copied: ${dest}`,
   sshKeyPrompt: 'SSH private key path:',
   sshAgentFailed: 'Failed to switch SSH agent key. Make sure ssh-agent is running.',
+  sshKeyChoice: 'SSH key setup:',
+  sshKeyChoiceGenerate: 'Generate new ed25519 key (recommended)',
+  sshKeyChoiceExisting: 'Use existing key',
+  sshKeyGenerated: (pubPath) => `SSH key generated. Public key: ${pubPath}`,
+  sshKeyAlreadyExists: (path) => `SSH key already exists at: ${path}`,
+  sshKeyAddToRemote: 'Add the public key above to your GitHub/GitLab account.',
+  sshKeygenFailed: 'Failed to generate SSH key. Please generate manually and use "Use existing key".',
 
   // Gitconfig
   gitconfigBackup: (path) => `Existing .gitconfig backed up: ${path}`,

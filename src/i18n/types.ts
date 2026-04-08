@@ -25,6 +25,13 @@ export interface Messages {
   sshKeyCopied: (dest: string) => string;
   sshKeyPrompt: string;
   sshAgentFailed: string;
+  sshKeyChoice: string;
+  sshKeyChoiceGenerate: string;
+  sshKeyChoiceExisting: string;
+  sshKeyGenerated: (pubPath: string) => string;
+  sshKeyAlreadyExists: (path: string) => string;
+  sshKeyAddToRemote: string;
+  sshKeygenFailed: string;
 
   // Gitconfig
   gitconfigBackup: (path: string) => string;

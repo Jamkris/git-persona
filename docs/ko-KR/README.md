@@ -37,8 +37,10 @@ ghem add personal
 대화형 프롬프트에서 다음을 입력합니다:
 - Git user.name
 - Git user.email
-- SSH 개인키 경로 (기본값: `~/.ssh/id_ghem_personal`)
+- SSH 키 설정: **새 키 생성** (권장) 또는 기존 키 사용
 - 자동 전환 디렉토리 (선택, 콤마 구분)
+
+"새 키 생성"을 선택하면 `ghem`이 자동으로 `ssh-keygen`을 실행하고 공개키를 표시합니다. 이를 GitHub/GitLab에 등록하세요.
 
 ### 프로필 수동 전환
 
@@ -110,17 +112,15 @@ SSH 키는 `~/.git-env-manager/keys/{profile}/`에 복사되며 적절한 권한
 
 ## SSH 키 생성 가이드
 
-프로필 추가 전에 각 계정별 SSH 키를 생성하세요:
+`ghem add` 명령어에서 SSH 키를 **자동 생성**할 수 있습니다. 대화형 프롬프트에서 "새 ed25519 키 생성"을 선택하세요.
+
+수동으로 키를 생성하려면:
 
 ```bash
-# Personal 프로필용
-ssh-keygen -t ed25519 -C "your-personal@email.com" -f ~/.ssh/id_ghem_personal
-
-# Work 프로필용
-ssh-keygen -t ed25519 -C "your-work@email.com" -f ~/.ssh/id_ghem_work
+ssh-keygen -t ed25519 -C "your-email@example.com" -f ~/.ssh/id_ghem_personal
 ```
 
-생성된 공개키를 각 GitHub/GitLab 계정에 등록한 후, `ghem add` 명령어를 실행하면 키가 관리 디렉토리로 복사됩니다.
+생성된 공개키를 GitHub/GitLab 계정에 등록한 후, `ghem add`에서 "기존 키 사용"을 선택하고 키 경로를 입력하세요.
 
 ---
 
