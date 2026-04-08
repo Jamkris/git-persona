@@ -40,7 +40,7 @@ VERSION="$VERSION" node << 'SCRIPT'
 const fs = require("node:fs");
 let content = fs.readFileSync("src/index.ts", "utf-8");
 const v = process.env.VERSION;
-content = content.replace(/\.version\('[^']*'\)/, `.version('${v}')`);
+content = content.replace(/\.version\s*\(\s*['"][^'"]*['"]\s*\)/, `.version('${v}')`);
 fs.writeFileSync("src/index.ts", content);
 SCRIPT
 

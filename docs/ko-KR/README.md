@@ -23,7 +23,7 @@ npm install -g git-env-manager
 ### 초기화
 
 ```bash
-gem init
+ghem init
 ```
 
 `~/.gh-persona/` 디렉토리와 초기 설정 파일이 생성됩니다.
@@ -31,7 +31,7 @@ gem init
 ### 프로필 추가
 
 ```bash
-gem add personal
+ghem add personal
 ```
 
 대화형 프롬프트에서 다음을 입력합니다:
@@ -43,7 +43,7 @@ gem add personal
 ### 프로필 수동 전환
 
 ```bash
-gem switch work
+ghem switch work
 ```
 
 전역 `git config`를 변경하고 SSH 키를 에이전트에 로드합니다.
@@ -51,7 +51,7 @@ gem switch work
 ### 프로필 목록 확인
 
 ```bash
-gem list
+ghem list
 ```
 
 등록된 프로필의 이름, 이메일, 매핑된 디렉토리를 표 형태로 출력합니다.
@@ -99,10 +99,10 @@ SSH 키는 `~/.gh-persona/keys/{profile}/`에 복사되며 적절한 권한(`060
 
 | 명령어 | 설명 |
 |--------|------|
-| `gem init` | `~/.gh-persona/` 디렉토리와 초기 설정 파일 생성 |
-| `gem add <profile>` | 대화형 프롬프트로 새 프로필 추가 |
-| `gem switch <profile>` | 전역 Git 프로필 및 SSH 키 전환 |
-| `gem list` | 등록된 프로필 목록 출력 |
+| `ghem init` | `~/.gh-persona/` 디렉토리와 초기 설정 파일 생성 |
+| `ghem add <profile>` | 대화형 프롬프트로 새 프로필 추가 |
+| `ghem switch <profile>` | 전역 Git 프로필 및 SSH 키 전환 |
+| `ghem list` | 등록된 프로필 목록 출력 |
 
 `gem`과 `git-env-manager` 두 명령어 모두 사용 가능합니다.
 
@@ -120,7 +120,7 @@ ssh-keygen -t ed25519 -C "your-personal@email.com" -f ~/.ssh/id_ed25519_personal
 ssh-keygen -t ed25519 -C "your-work@email.com" -f ~/.ssh/id_ed25519_work
 ```
 
-생성된 공개키를 각 GitHub/GitLab 계정에 등록한 후, `gem add` 명령어를 실행하면 키가 관리 디렉토리로 복사됩니다.
+생성된 공개키를 각 GitHub/GitLab 계정에 등록한 후, `ghem add` 명령어를 실행하면 키가 관리 디렉토리로 복사됩니다.
 
 ---
 

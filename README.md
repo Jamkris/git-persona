@@ -23,7 +23,7 @@ npm install -g git-env-manager
 ### Initialize
 
 ```bash
-gem init
+ghem init
 ```
 
 This creates `~/.gh-persona/` with an empty configuration.
@@ -31,7 +31,7 @@ This creates `~/.gh-persona/` with an empty configuration.
 ### Add a Profile
 
 ```bash
-gem add personal
+ghem add personal
 ```
 
 Interactive prompts will ask for:
@@ -43,7 +43,7 @@ Interactive prompts will ask for:
 ### Switch Profile (Manual)
 
 ```bash
-gem switch work
+ghem switch work
 ```
 
 Sets the global `git config` and loads the SSH key into the agent.
@@ -51,7 +51,7 @@ Sets the global `git config` and loads the SSH key into the agent.
 ### List Profiles
 
 ```bash
-gem list
+ghem list
 ```
 
 Displays all registered profiles with their emails and mapped directories.
@@ -99,10 +99,10 @@ All configuration is stored in `~/.gh-persona/`:
 
 | Command | Description |
 |---------|-------------|
-| `gem init` | Create `~/.gh-persona/` directory and initial config |
-| `gem add <profile>` | Add a new profile via interactive prompts |
-| `gem switch <profile>` | Switch global Git profile and SSH key |
-| `gem list` | Show all registered profiles |
+| `ghem init` | Create `~/.gh-persona/` directory and initial config |
+| `ghem add <profile>` | Add a new profile via interactive prompts |
+| `ghem switch <profile>` | Switch global Git profile and SSH key |
+| `ghem list` | Show all registered profiles |
 
 Both `gem` and `git-env-manager` work as CLI commands.
 
@@ -120,7 +120,7 @@ ssh-keygen -t ed25519 -C "your-personal@email.com" -f ~/.ssh/id_ed25519_personal
 ssh-keygen -t ed25519 -C "your-work@email.com" -f ~/.ssh/id_ed25519_work
 ```
 
-Then register the public keys on each GitHub/GitLab account. When you run `gem add`, the tool copies the keys into its managed directory.
+Then register the public keys on each GitHub/GitLab account. When you run `ghem add`, the tool copies the keys into its managed directory.
 
 ---
 

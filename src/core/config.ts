@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { CONFIG_PATH } from './paths.js';
+import { MESSAGES } from '../utils/messages.js';
 import type { PersonaConfig, Profile } from '../types/config.js';
 
 export class PersonaError extends Error {
@@ -27,7 +28,7 @@ export function configExists(): boolean {
 export function readConfig(): PersonaConfig {
   if (!existsSync(CONFIG_PATH)) {
     throw new PersonaError(
-      'config.json을 찾을 수 없습니다. `gem init`을 먼저 실행하세요.',
+      MESSAGES.configNotFound,
       'CONFIG_NOT_FOUND',
     );
   }
@@ -42,7 +43,7 @@ export function readConfig(): PersonaConfig {
     return parsed;
   } catch {
     throw new PersonaError(
-      'config.json 형식이 올바르지 않습니다.',
+      MESSAGES.configInvalid,
       'CONFIG_INVALID',
     );
   }

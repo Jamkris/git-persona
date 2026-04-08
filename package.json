@@ -4,7 +4,7 @@
 	"description": "Multi-git-profile manager with SSH key integration",
 	"type": "module",
 	"bin": {
-		"gem": "./dist/index.js",
+		"ghem": "./dist/index.js",
 		"git-env-manager": "./dist/index.js"
 	},
 	"scripts": {
