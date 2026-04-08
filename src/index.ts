@@ -11,7 +11,7 @@ const program = new Command();
 program
   .name('ghem')
   .description('다중 Git 프로필 및 SSH 키 관리 도구')
-  .version('1.0.2');
+  .version('1.2.0');
 
 registerInitCommand(program);
 registerAddCommand(program);
