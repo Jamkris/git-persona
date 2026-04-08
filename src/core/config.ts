@@ -1,7 +1,6 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { CONFIG_PATH } from './paths.js';
-import { MESSAGES } from '../utils/messages.js';
-import { setLocale } from '../i18n/index.js';
+import { setLocale, t } from '../i18n/index.js';
 import type { Locale } from '../i18n/types.js';
 import type { PersonaConfig, Profile } from '../types/config.js';
 
@@ -31,7 +30,7 @@ export function configExists(): boolean {
 export function readConfig(): PersonaConfig {
   if (!existsSync(CONFIG_PATH)) {
     throw new PersonaError(
-      MESSAGES.configNotFound,
+      t().configNotFound,
       'CONFIG_NOT_FOUND',
     );
   }
@@ -48,7 +47,7 @@ export function readConfig(): PersonaConfig {
     return config;
   } catch {
     throw new PersonaError(
-      MESSAGES.configInvalid,
+      t().configInvalid,
       'CONFIG_INVALID',
     );
   }

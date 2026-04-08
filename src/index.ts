@@ -3,23 +3,25 @@ import { registerInitCommand } from './commands/init.js';
 import { registerAddCommand } from './commands/add.js';
 import { registerSwitchCommand } from './commands/switch.js';
 import { registerListCommand } from './commands/list.js';
+import { registerConfigCommand } from './commands/config.js';
+import { t } from './i18n/index.js';
 import * as logger from './utils/logger.js';
-import { MESSAGES } from './utils/messages.js';
 
 const program = new Command();
 
 program
   .name('ghem')
-  .description('다중 Git 프로필 및 SSH 키 관리 도구')
+  .description('A CLI tool for managing multiple Git profiles and SSH keys')
   .version('1.2.0');
 
 registerInitCommand(program);
 registerAddCommand(program);
 registerSwitchCommand(program);
 registerListCommand(program);
+registerConfigCommand(program);
 
 program.parseAsync(process.argv).catch((err: unknown) => {
-  logger.error(MESSAGES.unexpectedError);
+  logger.error(t().unexpectedError);
   if (err instanceof Error) {
     console.error(err.message);
   }
