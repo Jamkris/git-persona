@@ -104,6 +104,7 @@ All configuration is stored in `~/.git-env-manager/`:
 | `ghem init` | Create `~/.git-env-manager/` directory and initial config |
 | `ghem add <profile>` | Add a new profile via interactive prompts |
 | `ghem switch <profile>` | Switch global Git profile and SSH key |
+| `ghem delete <profile>` | Delete a profile and its associated keys |
 | `ghem list` | Show all registered profiles |
 
 Both `ghem` and `git-env-manager` work as CLI commands.

@@ -45,6 +45,12 @@ export const en: Messages = {
   // List command
   noDirectories: '(none)',
 
+  // Delete command
+  deleteConfirm: (name) => `Are you sure you want to delete profile '${name}'?`,
+  deleteSuccess: (name) => `Profile '${name}' has been deleted.`,
+  deleteCancelled: 'Deletion cancelled.',
+  deleteActiveWarning: (name) => `Profile '${name}' is currently active. It will be deactivated.`,
+
   // Config command
   langUpdated: (locale) => `Language changed to '${locale}'.`,
   langInvalid: (locale) => `Invalid language '${locale}'. Supported: en, ko`,

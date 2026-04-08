@@ -104,6 +104,7 @@ SSH 키는 `~/.git-env-manager/keys/{profile}/`에 복사되며 적절한 권한
 | `ghem init` | `~/.git-env-manager/` 디렉토리와 초기 설정 파일 생성 |
 | `ghem add <profile>` | 대화형 프롬프트로 새 프로필 추가 |
 | `ghem switch <profile>` | 전역 Git 프로필 및 SSH 키 전환 |
+| `ghem delete <profile>` | 프로필 및 관련 키 삭제 |
 | `ghem list` | 등록된 프로필 목록 출력 |
 
 `ghem`과 `git-env-manager` 두 명령어 모두 사용 가능합니다.

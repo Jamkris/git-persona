@@ -45,6 +45,12 @@ export const ko: Messages = {
   // List command
   noDirectories: '(없음)',
 
+  // Delete command
+  deleteConfirm: (name) => `프로필 '${name}'을(를) 삭제하시겠습니까?`,
+  deleteSuccess: (name) => `프로필 '${name}'이(가) 삭제되었습니다.`,
+  deleteCancelled: '삭제가 취소되었습니다.',
+  deleteActiveWarning: (name) => `프로필 '${name}'은(는) 현재 활성 상태입니다. 비활성화됩니다.`,
+
   // Config command
   langUpdated: (locale) => `언어가 '${locale}'(으)로 변경되었습니다.`,
   langInvalid: (locale) => `유효하지 않은 언어입니다: '${locale}'. 지원: en, ko`,

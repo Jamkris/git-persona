@@ -71,3 +71,11 @@ export function addProfile(config: PersonaConfig, profile: Profile): PersonaConf
     profiles: [...config.profiles, profile],
   };
 }
+
+export function removeProfile(config: PersonaConfig, name: string): PersonaConfig {
+  return {
+    ...config,
+    profiles: config.profiles.filter((p) => p.name !== name),
+    activeProfile: config.activeProfile === name ? null : config.activeProfile,
+  };
+}

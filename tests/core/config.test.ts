@@ -37,6 +37,7 @@ import {
   configExists,
   getProfile,
   addProfile,
+  removeProfile,
   PersonaError,
 } from '../../src/core/config.js';
 import type { PersonaConfig, Profile } from '../../src/types/config.js';
@@ -198,6 +199,86 @@ describe('config', () => {
       expect(updated.profiles[0].name).toBe('work');
       // Original unchanged (immutability)
       expect(original.profiles).toHaveLength(0);
+    });
+  });
+
+  describe('removeProfile', () => {
+    it('removes profile by name (immutable)', () => {
+      const config: PersonaConfig = {
+        version: 1,
+        locale: 'en',
+        activeProfile: null,
+        profiles: [
+          {
+            name: 'personal',
+            gitUserName: 'Jamkris',
+            gitUserEmail: 'test@example.com',
+            sshKeyPath: 'id_ghem_personal',
+            directories: [],
+          },
+          {
+            name: 'work',
+            gitUserName: 'leesh',
+            gitUserEmail: 'leesh@work.com',
+            sshKeyPath: 'id_ghem_work',
+            directories: [],
+          },
+        ],
+      };
+
+      const updated = removeProfile(config, 'personal');
+      expect(updated.profiles).toHaveLength(1);
+      expect(updated.profiles[0].name).toBe('work');
+      // Original unchanged
+      expect(config.profiles).toHaveLength(2);
+    });
+
+    it('nullifies activeProfile when removing active profile', () => {
+      const config: PersonaConfig = {
+        version: 1,
+        locale: 'en',
+        activeProfile: 'work',
+        profiles: [
+          {
+            name: 'work',
+            gitUserName: 'leesh',
+            gitUserEmail: 'leesh@work.com',
+            sshKeyPath: 'id_ghem_work',
+            directories: [],
+          },
+        ],
+      };
+
+      const updated = removeProfile(config, 'work');
+      expect(updated.activeProfile).toBeNull();
+      expect(updated.profiles).toHaveLength(0);
+    });
+
+    it('preserves activeProfile when removing non-active profile', () => {
+      const config: PersonaConfig = {
+        version: 1,
+        locale: 'en',
+        activeProfile: 'personal',
+        profiles: [
+          {
+            name: 'personal',
+            gitUserName: 'Jamkris',
+            gitUserEmail: 'test@example.com',
+            sshKeyPath: 'id_ghem_personal',
+            directories: [],
+          },
+          {
+            name: 'work',
+            gitUserName: 'leesh',
+            gitUserEmail: 'leesh@work.com',
+            sshKeyPath: 'id_ghem_work',
+            directories: [],
+          },
+        ],
+      };
+
+      const updated = removeProfile(config, 'work');
+      expect(updated.activeProfile).toBe('personal');
     });
   });
 

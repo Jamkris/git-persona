@@ -47,6 +47,12 @@ export interface Messages {
   // List command
   noDirectories: string;
 
+  // Delete command
+  deleteConfirm: (name: string) => string;
+  deleteSuccess: (name: string) => string;
+  deleteCancelled: string;
+  deleteActiveWarning: (name: string) => string;
+
   // Config command
   langUpdated: (locale: string) => string;
   langInvalid: (locale: string) => string;

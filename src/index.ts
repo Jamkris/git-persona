@@ -3,6 +3,7 @@ import { registerInitCommand } from './commands/init.js';
 import { registerAddCommand } from './commands/add.js';
 import { registerSwitchCommand } from './commands/switch.js';
 import { registerListCommand } from './commands/list.js';
+import { registerDeleteCommand } from './commands/delete.js';
 import { registerConfigCommand } from './commands/config.js';
 import { t } from './i18n/index.js';
 import * as logger from './utils/logger.js';
@@ -18,6 +19,7 @@ registerInitCommand(program);
 registerAddCommand(program);
 registerSwitchCommand(program);
 registerListCommand(program);
+registerDeleteCommand(program);
 registerConfigCommand(program);
 
 program.parseAsync(process.argv).catch((err: unknown) => {
