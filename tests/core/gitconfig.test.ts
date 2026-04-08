@@ -19,6 +19,16 @@ vi.mock('../../src/core/paths.js', () => ({
   toTildePath: (path: string) => path,
 }));
 
+vi.mock('../../src/i18n/index.js', () => ({
+  setLocale: vi.fn(),
+  getLocale: () => 'en',
+  t: () => ({
+    configNotFound: 'config.json not found. Run `ghem init` first.',
+    configInvalid: 'config.json format is invalid.',
+  }),
+  isValidLocale: (v: string) => ['en', 'ko'].includes(v),
+}));
+
 // Mock homedir to use test directory
 vi.mock('node:os', async (importOriginal) => {
   const original = await importOriginal<typeof import('node:os')>();

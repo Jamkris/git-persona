@@ -119,4 +119,34 @@ describe('i18n', () => {
       }
     });
   });
+
+  describe('edge cases', () => {
+    it('t() reflects locale set immediately before call', () => {
+      setLocale('ko');
+      const koMsg = t().initSuccess;
+      setLocale('en');
+      const enMsg = t().initSuccess;
+      expect(koMsg).toBe(ko.initSuccess);
+      expect(enMsg).toBe(en.initSuccess);
+    });
+
+    it('all parameterized en messages include their argument', () => {
+      const testArg = 'test-value-123';
+      const fnKeys = Object.entries(en).filter(([, v]) => typeof v === 'function');
+      for (const [key, fn] of fnKeys) {
+        const result = (fn as (arg: string) => string)(testArg);
+        expect(result, `en.${key}() should contain argument`).toContain(testArg);
+      }
+    });
+
+    it('all parameterized ko messages include their argument', () => {
+      setLocale('ko');
+      const testArg = 'test-value-123';
+      const fnKeys = Object.entries(ko).filter(([, v]) => typeof v === 'function');
+      for (const [key, fn] of fnKeys) {
+        const result = (fn as (arg: string) => string)(testArg);
+        expect(result, `ko.${key}() should contain argument`).toContain(testArg);
+      }
+    });
+  });
 });
