@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# git-persona Release Helper Script
+# git-env-manager Release Helper Script
 # Usage: ./scripts/release.sh <version>
 # Example: ./scripts/release.sh 1.0.0
 
@@ -27,7 +27,7 @@ fi
 
 echo "Preparing release v$VERSION... ($CURRENT_VERSION → $VERSION)"
 
-# 1. Update package.json via node to preserve formatting
+# Update package.json via node to preserve formatting
 node -e "
 const fs = require('fs');
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
@@ -35,7 +35,7 @@ pkg.version = '$VERSION';
 fs.writeFileSync('package.json', JSON.stringify(pkg, null, '\t') + '\n');
 "
 
-# 2. Update src/index.ts version via node (cross-platform)
+# Update src/index.ts version via node (cross-platform)
 node -e "
 const fs = require('fs');
 let content = fs.readFileSync('src/index.ts', 'utf-8');
@@ -45,14 +45,14 @@ fs.writeFileSync('src/index.ts', content);
 
 echo "Version updated to $VERSION in package.json and src/index.ts."
 
-# 2. Build and test
+# Build and test
 echo "Building..."
 npm run build
 
 echo "Running tests..."
 npm run test:run
 
-# 3. Git commit and tag
+# Git commit and tag
 git add package.json src/index.ts
 
 if git diff --cached --quiet; then
