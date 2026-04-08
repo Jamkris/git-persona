@@ -20,6 +20,16 @@ vi.mock('../../src/core/paths.js', () => ({
   toTildePath: (path: string) => path,
 }));
 
+vi.mock('../../src/i18n/index.js', () => ({
+  setLocale: vi.fn(),
+  getLocale: () => 'en',
+  t: () => ({
+    configNotFound: 'config.json not found. Run `ghem init` first.',
+    configInvalid: 'config.json format is invalid.',
+  }),
+  isValidLocale: (v: string) => ['en', 'ko'].includes(v),
+}));
+
 import {
   readConfig,
   writeConfig,
@@ -57,8 +67,16 @@ describe('config', () => {
       const config = readConfig();
 
       expect(config.version).toBe(1);
+      expect(config.locale).toBe('en');
       expect(config.activeProfile).toBeNull();
       expect(config.profiles).toEqual([]);
+    });
+
+    it('creates config with Korean locale', () => {
+      writeDefaultConfig('ko');
+      const config = readConfig();
+
+      expect(config.locale).toBe('ko');
     });
 
     it('writes formatted JSON with trailing newline', () => {
@@ -108,6 +126,7 @@ describe('config', () => {
     it('persists config correctly', () => {
       const config: PersonaConfig = {
         version: 1,
+        locale: 'en',
         activeProfile: 'personal',
         profiles: [
           {
@@ -132,6 +151,7 @@ describe('config', () => {
   describe('getProfile', () => {
     const config: PersonaConfig = {
       version: 1,
+      locale: 'en',
       activeProfile: null,
       profiles: [
         {
@@ -159,6 +179,7 @@ describe('config', () => {
     it('returns new config with added profile (immutable)', () => {
       const original: PersonaConfig = {
         version: 1,
+        locale: 'en',
         activeProfile: null,
         profiles: [],
       };
@@ -177,6 +198,20 @@ describe('config', () => {
       expect(updated.profiles[0].name).toBe('work');
       // Original unchanged (immutability)
       expect(original.profiles).toHaveLength(0);
+    });
+  });
+
+  describe('backward compatibility', () => {
+    it('defaults locale to "en" when missing from config file', () => {
+      const legacy = JSON.stringify({
+        version: 1,
+        activeProfile: null,
+        profiles: [],
+      });
+      writeFileSync(TEST_CONFIG_PATH, legacy, 'utf-8');
+
+      const config = readConfig();
+      expect(config.locale).toBe('en');
     });
   });
 });

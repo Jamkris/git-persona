@@ -1,6 +1,8 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { CONFIG_PATH } from './paths.js';
 import { MESSAGES } from '../utils/messages.js';
+import { setLocale } from '../i18n/index.js';
+import type { Locale } from '../i18n/types.js';
 import type { PersonaConfig, Profile } from '../types/config.js';
 
 export class PersonaError extends Error {
@@ -13,9 +15,10 @@ export class PersonaError extends Error {
   }
 }
 
-function createDefaultConfig(): PersonaConfig {
+function createDefaultConfig(locale: Locale = 'en'): PersonaConfig {
   return {
     version: 1,
+    locale,
     activeProfile: null,
     profiles: [],
   };
@@ -40,7 +43,9 @@ export function readConfig(): PersonaConfig {
     if (parsed.version !== 1 || !Array.isArray(parsed.profiles)) {
       throw new Error();
     }
-    return parsed;
+    const config = { ...parsed, locale: parsed.locale ?? 'en' } as PersonaConfig;
+    setLocale(config.locale);
+    return config;
   } catch {
     throw new PersonaError(
       MESSAGES.configInvalid,
@@ -53,8 +58,8 @@ export function writeConfig(config: PersonaConfig): void {
   writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2) + '\n', 'utf-8');
 }
 
-export function writeDefaultConfig(): void {
-  writeConfig(createDefaultConfig());
+export function writeDefaultConfig(locale: Locale = 'en'): void {
+  writeConfig(createDefaultConfig(locale));
 }
 
 export function getProfile(config: PersonaConfig, name: string): Profile | undefined {
