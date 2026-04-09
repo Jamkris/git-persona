@@ -3,10 +3,11 @@ import { existsSync, readFileSync, appendFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { homedir } from 'node:os';
 
-function detectShell(): string {
+function detectShell(): string | null {
   const shell = process.env.SHELL ?? '';
   if (shell.includes('zsh')) return 'zsh';
-  return 'bash';
+  if (shell.includes('bash')) return 'bash';
+  return null;
 }
 
 function generateBashScript(): string {
@@ -112,10 +113,14 @@ const COMPLETION_MARKER = '# ghem shell completion';
 export type InstallResult =
   | { status: 'installed'; shell: string; rcFile: string }
   | { status: 'already_installed'; shell: string; rcFile: string }
-  | { status: 'failed'; shell: string; rcFile: string };
+  | { status: 'failed'; shell: string; rcFile: string }
+  | { status: 'unsupported'; shell: string; rcFile: string };
 
 export function installCompletion(): InstallResult {
   const shell = detectShell();
+  if (!shell) {
+    return { status: 'unsupported', shell: process.env.SHELL ?? 'unknown', rcFile: '' };
+  }
   const rcFile = shell === 'zsh'
     ? join(homedir(), '.zshrc')
     : join(homedir(), '.bashrc');
@@ -143,7 +148,7 @@ export function registerCompletionCommand(program: Command): void {
     .description('Output shell completion script')
     .option('--shell <shell>', 'Shell type (bash, zsh)')
     .action((opts: { shell?: string }) => {
-      const shell = opts.shell ?? detectShell();
+      const shell = opts.shell ?? detectShell() ?? 'bash';
       process.stdout.write(generateCompletionScript(shell));
     });
 }

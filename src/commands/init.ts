@@ -28,6 +28,9 @@ function setupCompletion(): void {
     case 'failed':
       logger.warn(t().completionFailed(result.rcFile));
       break;
+    case 'unsupported':
+      logger.warn(t().completionUnsupported);
+      break;
   }
 }
 

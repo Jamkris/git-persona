@@ -61,6 +61,7 @@ export const en: Messages = {
   completionInstalled: (rcFile) => `Shell completion installed in ${rcFile}. Restart your terminal to activate.`,
   completionAlreadyInstalled: 'Shell completion is already installed.',
   completionFailed: (rcFile) => `Failed to install shell completion in ${rcFile}. You can add it manually: eval "$(ghem completion)"`,
+  completionUnsupported: 'Shell not recognized. Run `ghem completion --shell bash` or `ghem completion --shell zsh` to get the completion script manually.',
 
   // General
   unexpectedError: 'An unexpected error occurred.',
