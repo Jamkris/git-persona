@@ -24,7 +24,7 @@ export const ko: Messages = {
   sshKeyPrompt: 'SSH 개인키 경로:',
   sshAgentFailed: 'SSH 에이전트 키 전환에 실패했습니다. SSH 에이전트가 실행 중인지 확인하세요.',
   sshKeyChoice: 'SSH 키 설정:',
-  sshKeyChoiceGenerate: '새 ed25519 키 생성 (권장)',
+  sshKeyChoiceGenerate: '새 SSH 키 생성 (권장)',
   sshKeyChoiceExisting: '기존 키 사용',
   sshKeyGenerated: (pubPath) => `SSH 키가 생성되었습니다. 공개키: ${pubPath}`,
   sshKeyAlreadyExists: (path) => `SSH 키가 이미 존재합니다: ${path}`,

@@ -24,7 +24,7 @@ export const en: Messages = {
   sshKeyPrompt: 'SSH private key path:',
   sshAgentFailed: 'Failed to switch SSH agent key. Make sure ssh-agent is running.',
   sshKeyChoice: 'SSH key setup:',
-  sshKeyChoiceGenerate: 'Generate new ed25519 key (recommended)',
+  sshKeyChoiceGenerate: 'Generate new SSH key (recommended)',
   sshKeyChoiceExisting: 'Use existing key',
   sshKeyGenerated: (pubPath) => `SSH key generated. Public key: ${pubPath}`,
   sshKeyAlreadyExists: (path) => `SSH key already exists at: ${path}`,
