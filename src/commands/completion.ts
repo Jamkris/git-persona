@@ -16,10 +16,10 @@ _ghem_completions() {
   local cur prev commands
   cur="\${COMP_WORDS[COMP_CWORD]}"
   prev="\${COMP_WORDS[COMP_CWORD-1]}"
-  commands="init add switch delete list config completion"
+  commands="init add switch delete list config completion status edit test"
 
   case "\${prev}" in
-    switch|delete)
+    switch|delete|edit|test)
       local profiles
       profiles=$(node -e "
         try {
@@ -68,6 +68,9 @@ _ghem_completions() {
     'list:Show all registered profiles'
     'config:Manage ghem configuration'
     'completion:Output shell completion script'
+    'status:Show current profile context for the working directory'
+    'edit:Edit an existing profile'
+    'test:Test SSH connection for a profile'
   )
 
   _arguments -C \\
@@ -80,7 +83,7 @@ _ghem_completions() {
       ;;
     args)
       case "\${words[1]}" in
-        switch|delete)
+        switch|delete|edit|test)
           profiles=(\${(f)"$(node -e "
             try {
               const fs = require('fs');

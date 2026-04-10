@@ -17,10 +17,13 @@ describe('completion', () => {
       expect(script).toContain('list');
       expect(script).toContain('config');
       expect(script).toContain('completion');
+      expect(script).toContain('status');
+      expect(script).toContain('edit');
+      expect(script).toContain('test');
     });
 
-    it('handles switch/delete profile completion', () => {
-      expect(script).toContain('switch|delete)');
+    it('handles profile name completion for switch/delete/edit/test', () => {
+      expect(script).toContain('switch|delete|edit|test)');
       expect(script).toContain('.git-env-manager');
       expect(script).toContain('config.json');
     });
@@ -46,10 +49,13 @@ describe('completion', () => {
       expect(script).toContain('list:');
       expect(script).toContain('config:');
       expect(script).toContain('completion:');
+      expect(script).toContain('status:');
+      expect(script).toContain('edit:');
+      expect(script).toContain('test:');
     });
 
-    it('handles switch/delete profile completion', () => {
-      expect(script).toContain('switch|delete)');
+    it('handles profile name completion for switch/delete/edit/test', () => {
+      expect(script).toContain('switch|delete|edit|test)');
       expect(script).toContain('.git-env-manager');
     });
   });

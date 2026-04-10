@@ -114,6 +114,9 @@ SSH 키는 `~/.git-env-manager/keys/{profile}/`에 복사되며 적절한 권한
 | `ghem list` | 등록된 프로필 목록 출력 |
 | `ghem config set-lang <locale>` | 표시 언어 설정 (en, ko) |
 | `ghem completion` | 쉘 자동완성 스크립트 출력 |
+| `ghem status` | 현재 디렉토리의 프로필 컨텍스트 표시 |
+| `ghem edit <profile>` | 기존 프로필을 대화형으로 수정 |
+| `ghem test <profile> [--host <hostname>]` | 프로필의 SSH 연결 테스트 |
 
 `ghem`과 `git-env-manager` 두 명령어 모두 사용 가능합니다.
 
@@ -170,7 +173,7 @@ echo 'eval "$(ghem completion --shell bash)"' >> ~/.bashrc
 echo 'eval "$(ghem completion --shell zsh)"' >> ~/.zshrc
 ```
 
-`switch`/`delete` 명령어에서 프로필 이름, `config set-lang`에서 언어 옵션이 탭 자동완성됩니다.
+`switch`/`delete`/`edit`/`test` 명령어에서 프로필 이름, `config set-lang`에서 언어 옵션이 탭 자동완성됩니다.
 
 ---
 
