@@ -44,7 +44,7 @@ git-env-manager handles sensitive data including SSH private keys and Git config
 ### Git Configuration
 
 - `~/.gitconfig` modifications use **atomic writes** (write to temp file, then rename)
-- A timestamped backup is created before every `~/.gitconfig` modification
+- A timestamped backup is created before `~/.gitconfig` modification when directory-based auto-switching is configured
 - Existing gitconfig entries (LFS, difftool, mergetool, etc.) are never removed
 
 ### General Practices

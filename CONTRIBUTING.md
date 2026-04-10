@@ -46,7 +46,7 @@ npm test
 
 ## Project Structure
 
-```
+```text
 src/
 ├── commands/       # CLI command handlers (add, switch, delete, etc.)
 ├── core/           # Core logic (SSH, keygen, gitconfig, config)
@@ -124,7 +124,7 @@ All user-facing messages must go through the i18n system.
 
 Follow [Conventional Commits](https://www.conventionalcommits.org/):
 
-```
+```text
 <type>: <description>
 ```
 

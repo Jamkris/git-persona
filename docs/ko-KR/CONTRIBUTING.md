@@ -48,7 +48,7 @@ npm test
 
 ## 프로젝트 구조
 
-```
+```text
 src/
 ├── commands/       # CLI 명령어 핸들러 (add, switch, delete 등)
 ├── core/           # 핵심 로직 (SSH, keygen, gitconfig, config)
@@ -126,7 +126,7 @@ docs/               # 문서 (영어 + 한국어)
 
 [Conventional Commits](https://www.conventionalcommits.org/) 규칙을 따릅니다:
 
-```
+```text
 <type>: <description>
 ```
 
