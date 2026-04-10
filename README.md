@@ -114,6 +114,9 @@ All configuration is stored in `~/.git-env-manager/`:
 | `ghem list` | Show all registered profiles |
 | `ghem config set-lang <locale>` | Set display language (en, ko) |
 | `ghem completion` | Output shell completion script |
+| `ghem status` | Show current profile context for the working directory |
+| `ghem edit <profile>` | Edit an existing profile interactively |
+| `ghem test <profile> [--host <hostname>]` | Test SSH connection for a profile |
 
 Both `ghem` and `git-env-manager` work as CLI commands.
 
@@ -170,7 +173,7 @@ echo 'eval "$(ghem completion --shell bash)"' >> ~/.bashrc
 echo 'eval "$(ghem completion --shell zsh)"' >> ~/.zshrc
 ```
 
-Tab completion supports command names, profile names for `switch`/`delete`, and language options for `config set-lang`.
+Tab completion supports command names, profile names for `switch`/`delete`/`edit`/`test`, and language options for `config set-lang`.
 
 ---
 
