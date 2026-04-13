@@ -91,7 +91,6 @@ export function registerEditCommand(program: Command): void {
           });
         } else if (currentSigning) {
           logger.warn(t().commitSigningUnsupported);
-          commitSigning = false;
         }
 
         const currentDirs = profile.directories.join(', ');

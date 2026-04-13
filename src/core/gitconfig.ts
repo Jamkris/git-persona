@@ -1,6 +1,7 @@
-import { readFileSync, writeFileSync, existsSync, renameSync, copyFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, renameSync, copyFileSync, unlinkSync } from 'node:fs';
 import { join } from 'node:path';
 import { homedir } from 'node:os';
+import { randomBytes } from 'node:crypto';
 import { PERSONA_DIR, toTildePath } from './paths.js';
 import { PersonaError } from './config.js';
 import type { Profile } from '../types/config.js';
@@ -19,9 +20,20 @@ function writeGitconfigAtomic(content: string): void {
 }
 
 function writeFileAtomic(path: string, content: string): void {
-  const tmpPath = `${path}.ghem-tmp`;
-  writeFileSync(tmpPath, content, 'utf-8');
-  renameSync(tmpPath, path);
+  const tmpPath = `${path}.ghem-tmp.${process.pid}.${randomBytes(6).toString('hex')}`;
+  try {
+    writeFileSync(tmpPath, content, 'utf-8');
+    renameSync(tmpPath, path);
+  } catch (err) {
+    try {
+      if (existsSync(tmpPath)) {
+        unlinkSync(tmpPath);
+      }
+    } catch {
+      // ignore cleanup failures
+    }
+    throw err;
+  }
 }
 
 export function backupGitconfig(): string | null {
