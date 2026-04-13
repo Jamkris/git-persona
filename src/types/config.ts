@@ -12,5 +12,6 @@ export interface PersonaConfig {
   version: 1;
   locale: Locale;
   activeProfile: string | null;
+  promptIndicator?: boolean;
   profiles: Profile[];
 }
